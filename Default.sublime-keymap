@@ -1,0 +1,4 @@
+[
+    { "keys": ["ctrl+o"], "command": "open_file_prompt" },
+    { "keys": ["ctrl+shift+s"], "command": "save_file_prompt" },
+]
