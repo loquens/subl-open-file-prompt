@@ -244,6 +244,10 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
         self.scratch_file_list.run_command(
             'show_file_list', {'bufferText': buffer_text})
 
+        # Sublime Text 4 (4094) leaves scratch_file_list focused after update
+        # Sublime Text 3 - not
+        self.window.focus_view(self._ip)
+
     def close_scratch_list(self):
         if self.scratch_file_list:
             self.window.focus_view(self.scratch_file_list)
