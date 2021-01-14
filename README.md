@@ -10,7 +10,9 @@ Improvements of prompt\_open\_file\_path.py from [cg-sublime](https://github.com
 
 Put _subl-open-file-prompt_ directory inside _Packages_ directory of Sublime Text, which could be located by selecting "_Preferences - Browse Packages..._" command from Sublime Text menu.
 
-### Default Keybindings
+### Keybindings
+
+Suggested keybindings:
 
     { "keys": ["ctrl+o"], "command": "open_file_prompt" },
     { "keys": ["ctrl+shift+s"], "command": "save_file_prompt" },
