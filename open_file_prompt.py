@@ -226,7 +226,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
             for file in files:
                 buffer_text += "".join(file.ljust(maxFileNameLen+1))
                 i += 1
-                if i == num_cols:
+                if i >= num_cols:
                     buffer_text = buffer_text.strip() + '\n'
                     i = 0
         else:
