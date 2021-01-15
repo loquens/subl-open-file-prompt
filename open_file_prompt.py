@@ -82,7 +82,6 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
                     if os.name == 'nt':
                         if len(prefix) < len(caseInsensitivePrefix):
                             prefix = caseInsensitivePrefix
-                    sublime.status_message('prefix: ' + prefix)
                     newPath = os.path.join(currentDir, prefix)
                 else:
                     newPath = os.path.join(currentDir, filesInDir[0])
