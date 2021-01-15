@@ -151,10 +151,9 @@ class QuickPanelSuggestionsList:
             self.owner.on_file_selected(self.getFileNameByIndex(selectedIndex))
 
     def getFileNameByIndex(self, index):
-        if index == -1:
-            text = self.currentDir + os.sep
-        else:
-            text = self.currentDir + os.sep + self.files[index]
+        text = self.currentDir + os.sep
+        if index != -1:
+            text += self.files[index]
         return text
 
     def setCurrentIndex(self, currentIndex):
