@@ -146,6 +146,7 @@ class QuickPanelSuggestionsList:
     def quick_panel_on_close(self, selectedIndex):
         if selectedIndex == -1:
             self.setCurrentIndex(-1)
+            self.owner.window.focus_view(self.owner._ip)
         else:
             self.owner.on_file_selected(self.getFileNameByIndex(selectedIndex))
 
