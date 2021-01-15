@@ -146,8 +146,7 @@ class QuickPanelSuggestionsList:
     def quick_panel_on_close(self, selectedIndex):
         if selectedIndex == -1:
             self.setCurrentIndex(-1)
-        # Sublime Text 4 (4094) leaves scratch_buffer focused after update
-        # Sublime Text 3 - not
+        # returning focus to input panel
         self.owner.window.focus_view(self.owner._ip)
 
     def setCurrentIndex(self, currentIndex):
