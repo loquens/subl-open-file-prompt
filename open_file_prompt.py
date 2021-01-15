@@ -146,14 +146,18 @@ class QuickPanelSuggestionsList:
     def quick_panel_on_close(self, selectedIndex):
         if selectedIndex == -1:
             self.setCurrentIndex(-1)
-        # returning focus to input panel
-        self.owner.window.focus_view(self.owner._ip)
+        else:
+            self.owner.on_file_selected(self.getFileNameByIndex(selectedIndex))
 
-    def setCurrentIndex(self, currentIndex):
-        if currentIndex == -1:
+    def getFileNameByIndex(self, index):
+        if index == -1:
             text = self.currentDir + os.sep
         else:
-            text = self.currentDir + os.sep + self.files[currentIndex]
+            text = self.currentDir + os.sep + self.files[index]
+        return text
+
+    def setCurrentIndex(self, currentIndex):
+        text = self.getFileNameByIndex(currentIndex)
         self.owner._ip.run_command('update_input_panel', {'text': text})
 
     def quick_panel_on_highlited(self, selectedIndex):
@@ -213,6 +217,14 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
             if currentFilePath:
                 startDir = os.path.dirname(currentFilePath) + os.sep
         return startDir
+
+    def on_file_selected(self, filename):
+        self._ip.run_command('update_input_panel', {'text': filename})
+        # returning focus to input panel
+        self.on_done_open(filename)
+        self.window.focus_view(self._ip)
+        if not os.path.isdir(filename):
+            self.window.run_command("hide_panel", {"cancel": True})
 
     def on_change(self, text):
         if not text:
