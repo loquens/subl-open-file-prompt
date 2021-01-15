@@ -90,7 +90,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
                 newPath = currentFilePath
                 sublime.status_message(
                      'No files match "%s"' % currentFile)
-                self.scratch_file_list.run_command('clear_file_list')
+                self.file_list_clear()
 
             if os.path.isdir(newPath) and matchCount == 1:
                 if newPath[-1:] != os.sep:
@@ -184,7 +184,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
             self.scratch_file_list.set_scratch(True)
         else:
             # clear contents of existing scratch list
-            self.scratch_file_list.run_command('clear_file_list')
+            self.file_list_clear()
 
         num_files = len(files)
 
@@ -254,6 +254,9 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
             if self.scratch_file_list.id() == self.window.active_view().id():
                 self.window.run_command('close')
 
+    def file_list_clear(self):
+        if self.scratch_file_list is not None:
+            self.scratch_file_list.run_command('clear_file_list')
 
 class ClearFileListCommand(sublime_plugin.TextCommand):
     def run(self, edit):
