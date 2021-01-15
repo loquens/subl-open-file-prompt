@@ -66,7 +66,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
                 matchCount = len(filesInDir)
                 if matchCount > 1:
                     if self.use_scratch_buffer:
-                        self.set_scratch_file_list(filesInDir, currentDir)
+                        self.file_list_set_content(filesInDir, currentDir)
                     else:
                         statusText = ''.join((f + ', ') for f in filesInDir)
                         statusText = statusText[:-2]
@@ -98,7 +98,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
             self._ip.run_command('update_input_panel', {'text': newPath})
 
     def on_done_open(self, text):
-        self.close_scratch_list()
+        self.file_list_close()
 
         text = os.path.expanduser(text)
 
@@ -129,11 +129,11 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
             sublime.status_message('Unable to open "%s"' % text)
 
     def on_done_save(self, text):
-        self.close_scratch_list()
+        self.file_list_close()
         self.save_file_to_disk(text)
 
     def on_panel_closed(self):
-        self.close_scratch_list()
+        self.file_list_close()
 
     def save_file_to_disk(self, file_name):
         window = self.window
@@ -177,7 +177,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
         file_contents = input_text.encode(encoding)
         return file_contents
 
-    def set_scratch_file_list(self, files, currentDir):
+    def file_list_set_content(self, files, currentDir):
         if not self.scratch_file_list:
             # create scratch file list if it doesn't already exist
             self.scratch_file_list = self.window.new_file()
@@ -248,7 +248,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
         # Sublime Text 3 - not
         self.window.focus_view(self._ip)
 
-    def close_scratch_list(self):
+    def file_list_close(self):
         if self.scratch_file_list:
             self.window.focus_view(self.scratch_file_list)
             if self.scratch_file_list.id() == self.window.active_view().id():
