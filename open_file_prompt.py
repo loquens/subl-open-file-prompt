@@ -50,27 +50,8 @@ class ScratchSuggestionsList:
             if self.scratch_buffer.id() == window.active_view().id():
                 window.run_command('close')
 
-    def set_content(self, files, currentDir):
-        # sorting entries
-        files = getDirectoryPresentation(files,
-                                         currentDir,
-                                         self.showDirsBeforeFiles)
-
-        if not self.scratch_buffer:
-            # create scratch file list if it doesn't already exist
-            self.scratch_buffer = self.owner.window.new_file()
-            self.scratch_buffer.set_scratch(True)
-        else:
-            # clear contents of existing scratch list
-            self.clear()
-
+    def generateNamesTable(self, files, view_width_chars):
         num_files = len(files)
-
-        vp_extent = self.scratch_buffer.viewport_extent()
-        line_height = self.scratch_buffer.line_height()
-        line_width = self.scratch_buffer.em_width()
-        view_height_chars = int(math.floor(vp_extent[1] / line_height))
-        view_width_chars = int(vp_extent[0] / line_width)
 
         # getting maximum file name length in list
         maxFileNameLen = len(max(files, key=len))
@@ -94,9 +75,29 @@ class ScratchSuggestionsList:
 
         # strip spaces of last element (if there is)
         buffer_text = buffer_text.strip()
+        return buffer_text
 
+    def set_content(self, files, currentDir):
+        # sorting entries
+        files = getDirectoryPresentation(files,
+                                         currentDir,
+                                         self.showDirsBeforeFiles)
+
+        if not self.scratch_buffer:
+            # create scratch file list if it doesn't already exist
+            self.scratch_buffer = self.owner.window.new_file()
+            self.scratch_buffer.set_scratch(True)
+        else:
+            # clear contents of existing scratch list
+            self.clear()
+
+        vp_extent = self.scratch_buffer.viewport_extent()
+        line_width = self.scratch_buffer.em_width()
+        view_width_chars = int(vp_extent[0] / line_width)
+
+        buffer_text = self.generateNamesTable(files, view_width_chars)
         strings = buffer_text.split('\n')
-        prefix = "Possible completions found: %d" % num_files
+        prefix = "Possible completions found: %d" % len(files)
         maxStringLen = max(len(prefix), len(max(strings, key=len)))
         str_delim = '-' * maxStringLen
         buffer_text = "\n%s\n%s\n%s" \
