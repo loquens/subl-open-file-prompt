@@ -1,7 +1,7 @@
 [
     // Open file using prompt with suggestions implemented by scratch buffer (suggestions_list_type 0)
-    { "keys": ["ctrl+o"], "command": "open_file_prompt", "args":  { "suggestions_list_type": 0, "directories_first" : true } },
+    { "keys": ["alt+ctrl+o"], "command": "open_file_prompt", "args":  { "suggestions_list_type": 0, "directories_first" : true } },
 
     // Save file using prompt with suggestions implemented by scratch buffer (suggestions_list_type 0)
-    { "keys": ["ctrl+shift+s"], "command": "save_file_prompt", "args": { "suggestions_list_type": 0, "directories_first" : true } },
+    { "keys": ["alt+ctrl+shift+s"], "command": "save_file_prompt", "args": { "suggestions_list_type": 0, "directories_first" : true } },
 ]
