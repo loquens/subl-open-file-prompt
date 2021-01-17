@@ -1,0 +1,50 @@
+[
+    {
+        "caption": "FilePrompt: Open file (suggestions in scratch buffer)",
+        "command": "open_file_prompt", "args":
+        {
+            "suggestions_list_type": 0,
+            "directories_first" : true
+        }
+    },
+    {
+        "caption": "FilePrompt: Open file (suggestions in status line)",
+        "command": "open_file_prompt", "args":
+        {
+            "suggestions_list_type": 1,
+            "directories_first" : true
+        }
+    },
+    {
+        "caption": "FilePrompt: Open file (suggestions in quick panel)",
+        "command": "open_file_prompt", "args":
+        {
+            "suggestions_list_type": 2,
+            "directories_first" : true
+        }
+    },
+    {
+        "caption": "FilePrompt: Save file (suggestions in scratch buffer)",
+        "command": "save_file_prompt", "args":
+        {
+            "suggestions_list_type": 0,
+            "directories_first" : true
+        }
+    },
+    {
+        "caption": "FilePrompt: Save file (suggestions in status line)",
+        "command": "save_file_prompt", "args":
+        {
+            "suggestions_list_type": 1,
+            "directories_first" : true
+        }
+    },
+    {
+        "caption": "FilePrompt: Save file (suggestions in quick panel)",
+        "command": "save_file_prompt", "args":
+        {
+            "suggestions_list_type": 2,
+            "directories_first" : true
+        }
+    },
+]

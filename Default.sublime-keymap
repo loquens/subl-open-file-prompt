@@ -1,4 +1,0 @@
-[
-    // { "keys": ["ctrl+o"], "command": "open_file_prompt", "args": { "suggestions_list_type": 0, "directories_first" : true } },
-    // { "keys": ["ctrl+shift+s"], "command": "save_file_prompt", "args": { "suggestions_list_type": 0, "directories_first" : true } },
-]
