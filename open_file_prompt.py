@@ -375,6 +375,9 @@ class UpdateInputPanelCommand(sublime_plugin.TextCommand):
             allTextRegion,
             text
         )
+        selection = self.view.sel()
+        selection.clear()
+        selection.add(sublime.Region(len(text)))
 
 
 class OpenFilePrompt(FilePromptCommand):
