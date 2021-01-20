@@ -65,7 +65,7 @@ class ScratchSuggestionsList:
 
             i = 0
             for file in files:
-                buffer_text += "".join(file.ljust(maxFileNameLen+1))
+                buffer_text += "".join(file.ljust(col_width))
                 i += 1
                 if i >= num_cols:
                     buffer_text = buffer_text.strip() + '\n'
