@@ -286,12 +286,10 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
         if not os.path.exists(text):
             # 'touch' file if it doesn't exist
             try:
-                try:
-                    f = open(text, 'w')
-                finally:
-                    f.close()
+                f = open(text, 'w')
+                f.close()
             except IOError:
-                self.message('Unable to create file "[%s]"' % text)
+                sublime.status_message('Unable to create file "[%s]"' % text)
 
         try:
             self.window.open_file(text)
