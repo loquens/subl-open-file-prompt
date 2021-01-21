@@ -34,10 +34,26 @@ def getDirectoryPresentation(files, currentDir, showDirsBeforeFiles=True):
 
 
 class ScratchSuggestionsList:
+    HEADER_LINES = 3  # predefined amount of header lines
+
     def __init__(self, owner, dirs_first):
         self.showDirsBeforeFiles = dirs_first
         self.scratch_buffer = None
         self.owner = owner
+        EventListener.subscribe(self)
+
+    def on_selection_modified(self, view):
+        if view == self.scratch_buffer:
+            window = self.owner.window
+            region = view.sel()[0]
+            row, col = view.rowcol(region.a)
+            headerLines = ScratchSuggestionsList.HEADER_LINES
+            index = math.floor((row - headerLines) * self.num_cols +
+                               col/self.col_width)
+            if index >= 0 and index < len(self.files):
+                sublime.status_message("row: %s col %s, index %s fileName: %s" % (row, col, index, self.files[index]))
+                filePath = self.currentDir + os.sep + self.files[index]
+                self.owner.on_file_selected(filePath)
 
     def clear(self):
         if self.scratch_buffer:
@@ -49,6 +65,7 @@ class ScratchSuggestionsList:
             window.focus_view(self.scratch_buffer)
             if self.scratch_buffer.id() == window.active_view().id():
                 window.run_command('close')
+            self.scratch_buffer = None
 
     def generateNamesTable(self, files, view_width_chars):
         num_files = len(files)
@@ -59,6 +76,10 @@ class ScratchSuggestionsList:
         col_width = maxFileNameLen + 5
 
         num_cols = int(view_width_chars / col_width)
+
+        # Store information about colums to use in on_selection_modified
+        self.col_width = col_width
+        self.num_cols = num_cols
 
         if num_files > 0:
             buffer_text = ""
@@ -82,6 +103,10 @@ class ScratchSuggestionsList:
         files = getDirectoryPresentation(files,
                                          currentDir,
                                          self.showDirsBeforeFiles)
+
+        # Store files and currentDir, to use in on_selection_modified
+        self.files = files
+        self.currentDir = currentDir
 
         if not self.scratch_buffer:
             # create scratch file list if it doesn't already exist
@@ -362,6 +387,9 @@ class ClearFileListCommand(sublime_plugin.TextCommand):
 class ShowFileListCommand(sublime_plugin.TextCommand):
     def run(self, edit, bufferText):
         self.view.insert(edit, 0, bufferText)
+        selection = self.view.sel()
+        selection.clear()
+        selection.add(sublime.Region(0))
         self.view.set_read_only(True)
 
 
@@ -396,3 +424,15 @@ class SaveFilePrompt(FilePromptCommand):
             save_file=True,
             suggestions_list_type=suggestions_list_type,
             dirs_first=directories_first)
+
+
+class EventListener(sublime_plugin.EventListener):
+    subscribers = list()
+
+    def subscribe(obj):
+        EventListener.subscribers.append(obj)
+
+    def on_selection_modified(self, view):
+        for sub in EventListener.subscribers:
+            if sub is not None:
+                sub.on_selection_modified(view)
