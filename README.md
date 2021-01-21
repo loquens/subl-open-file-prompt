@@ -1,8 +1,17 @@
 # subl-open-file-prompt
 
-Sublime Text 3 plugin, which implements 'Linux-styled' file open and save prompt with suggestions.
+Sublime Text 3 plugin, which implements 'Linux-styled' file open and save prompt with suggestions and autocompletion by 'Tab' key.
 
-Improvements of prompt\_open\_file\_path.py from [cg-sublime](https://github.com/loquens/cg-sublime) by [Chris Guilbeau](https://forum.sublimetext.com/u/chrisguilbeau).
+It has three different types of suggestions list (configurable in keyboard shortcut):
+ * scratch buffer
+    * matched files and dirs displayed in columns in scratch buffer
+    * files could be selected by mouse also
+ * status bar
+    * matched files and dirs displayed only in status bar
+ * quick panel
+    * matched files and directories displayed in quick panel
+
+Basic idea and source for improvements was taken from prompt\_open\_file\_path.py from [cg-sublime](https://github.com/loquens/cg-sublime) by [Chris Guilbeau](https://forum.sublimetext.com/u/chrisguilbeau).
 
 ## Usage
 
@@ -29,3 +38,11 @@ Values for _suggestions\_list\_type_:
 Values for _directories\_first_:
  * true - show directories before files in suggestions list (default)
  * false - show files and directories in alphabetical order
+
+### Changelog
+
+* 0.0.8
+    * (scratch) added ability to open file/select directory by mouse click
+    * small improvements and bug fixes
+* 0.0.1 to 0.0.7
+    * implementation steps
