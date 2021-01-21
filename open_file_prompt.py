@@ -234,6 +234,7 @@ class FilePromptCommand(sublime_plugin.WindowCommand):
             self.on_change,
             self.on_panel_closed
         )
+        self._ip.settings().set("tab_completion", False)
 
     def getStartDir(self):
         startDir = getHomeDir() + os.sep

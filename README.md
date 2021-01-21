@@ -41,6 +41,8 @@ Values for _directories\_first_:
 
 ### Changelog
 
+* 0.0.9
+    * input panel does not need "tab_completions" set to "False" in settings to work correctly
 * 0.0.8
     * (scratch) added ability to open file/select directory by mouse click
     * small improvements and bug fixes
