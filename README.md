@@ -17,7 +17,14 @@ Basic idea and source for improvements was taken from prompt\_open\_file\_path.p
 
 ### Installation
 
-Put _subl-open-file-prompt_ directory inside _Packages_ directory of Sublime Text, which could be located by selecting "_Preferences - Browse Packages..._" command from Sublime Text menu.
+#### From Package control
+
+It is preffered way of installation.
+ * Install [Package control](https://packagecontrol.io/installation) package.
+ * Go to _Preferences - "Package Control" - "Install Package" - FilePrompt_, and press Enter.
+
+#### From source
+Clone git repository and put _subl-open-file-prompt_ directory inside _Packages_ directory of Sublime Text, which could be located by selecting "_Preferences - Browse Packages..._" command from Sublime Text menu.
 
 ### Keybindings
 
